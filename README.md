@@ -1,18 +1,20 @@
-# 3D Contour to STL Setup
+# 3D Contour to STL
 
-### 1. Install Dependencies
+Converts topographic contour images into 3D surface models. 
+Supports dashed lines for depressions and nested logic.
+
+### 1. Setup
 pip install -r requirements.txt
 
-### 2. Run Single Image
-python main.py input.jpg --output model.stl --step 10 --smooth --color terrain
-
-### 3. Run Batch Script
+### 2. Batch Process (All files in /exemplos)
 chmod +x run_all.sh
 ./run_all.sh
 
-### CLI Options
-- `--step`: Height per contour (default: 5.0)
-- `--base`: Floor thickness (default: 2.0)
-- `--valley`: Invert heights (inner rings become holes)
-- `--smooth`: Apply Gaussian blur to soften edges
-- `--color`: Apply visual colormap (e.g., 'viridis', 'terrain', 'magma')
+### 3. Single File Execution
+python main.py exemplos/map.jpg --output output/model.stl --step 10 --stretch 5.0 --smooth
+
+### CLI Parameters
+- `--step`: Height difference between lines.
+- `--stretch`: Vertical exaggeration (increase if model looks flat).
+- `--base`: Minimum thickness of the model.
+- `--smooth`: Rounds off "steps" for a natural look.

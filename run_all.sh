@@ -2,29 +2,30 @@
 
 # Configuration
 STEP=10
+STRETCH=5.0
 BASE=2.0
-COLOR="terrain"
 INPUT_DIR="exemplos"
 OUTPUT_DIR="output"
 
-# Create output directory if it doesn't exist
+# Create output directory
 mkdir -p "$OUTPUT_DIR"
 
+# Process all .jpeg and .jpg files
 for img in "$INPUT_DIR"/*.[jJ][pP][eE]*[gG]; do
-    [ -e "$img" ] || { echo "No images found in $INPUT_DIR"; exit 1; }
-
+    [ -e "$img" ] || continue
+    
     filename=$(basename -- "$img")
     basename="${filename%.*}"
-
-    echo "Processing $img -> $OUTPUT_DIR/$basename.stl"
-
+    
+    echo "Processing $filename (Stretch: ${STRETCH}x)..."
+    
     python main.py "$img" \
         --output "$OUTPUT_DIR/$basename.stl" \
         --step $STEP \
+        --stretch $STRETCH \
         --base $BASE \
-        --smooth \
-        --color $COLOR
+        --smooth
 done
 
-echo "-----------------------------------"
-echo "Done. Models saved to $OUTPUT_DIR/"
+echo "---------------------------------------"
+echo "Done. Models are in the '$OUTPUT_DIR' folder."
