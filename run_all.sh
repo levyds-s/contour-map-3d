@@ -21,9 +21,6 @@ for img in "$INPUT_DIR"/*.[jJ][pP][eE]*[gG]; do
     
     python main.py "$img" \
         --output "$OUTPUT_DIR/$basename.stl" \
-        --step $STEP \
-        --stretch $STRETCH \
-        --base $BASE \
         --smooth
 done
 
